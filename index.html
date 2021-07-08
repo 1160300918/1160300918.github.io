@@ -152,6 +152,122 @@
           <div id="js-content" class="content-ll">
             
   
+    <article id="post-P" class="article article-type-post  article-index" itemscope itemprop="blogPost">
+  <div class="article-inner">
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h2 id="Prototype-Completion-with-Primitive-Knowledge-for-Few-Shot-Learning"><a href="#Prototype-Completion-with-Primitive-Knowledge-for-Few-Shot-Learning" class="headerlink" title="Prototype Completion with Primitive Knowledge for Few-Shot Learning"></a>Prototype Completion with Primitive Knowledge for Few-Shot Learning</h2><h3 id="Motivation"><a href="#Motivation" class="headerlink" title="Motivation"></a>Motivation</h3><ol>
+<li><p>先前的 pretrain 一个 feature extractor 并在新类基于最近质心 fine-tune 的meta-learning 方法虽然有效，但是<strong>实验证明 fine-tune 的作用很小，关键原因是在 pretrain 的特征空间中，基类已经形成了紧凑的簇，而新类则很分散</strong>。</p>
+</li>
+<li><p>在新类别的方差很大的情况下，给定的少数标记样本可能远离真实中心，这对估计代表性原型提出了巨大挑战。在本文中发现<strong>偏离其真实中心的样本通常是不完整的</strong>，即缺少一些具有代表性的属性特征。</p>
+</li>
+</ol>
+<p>本文没有 fine-tune feature extractor，而是专注于在 meta-learning 期间估计更具代表性的 prototypes。</p>
+<h3 id="Method"><a href="#Method" class="headerlink" title="Method"></a>Method</h3><p><a target="_blank" rel="noopener" href="https://imgtu.com/i/RO02D0"><img src="https://z3.ax1x.com/2021/07/08/RO02D0.png" alt="RO02D0.png"></a><br>提出了一种新颖的 <strong>prototype completion based</strong> 的元学习框架。该框架首先<strong>引入原始知识</strong>（即 class-level 部分或 attribute annotation）并提取具有代表性的属性特征作为先验。然后，我们设计了一个<strong>原型完成</strong>网络来学习用这些先验来完成原型。</p>
+<p>为了避免由原始知识噪声或类差异引起的原型完成错误，本文进一步开发了一种<strong>基于高斯的原型融合策略</strong>，该策略通过利用未标记的样本将 mean-based 原型和 completed 原型相结合。</p>
+<h3 id="Experiment-results"><a href="#Experiment-results" class="headerlink" title="Experiment results"></a>Experiment results</h3>
+      
+
+      
+    </div>
+    <div class="article-info article-info-index">
+      
+      
+      
+
+      
+        <p class="article-more-link">
+          <a class="article-more-a" href="/2021/07/08/P/">展开全文 >></a>
+        </p>
+      
+
+      
+      <div class="clearfix"></div>
+    </div>
+  </div>
+</article>
+
+<aside class="wrap-side-operation">
+    <div class="mod-side-operation">
+        
+        <div class="jump-container" id="js-jump-container" style="display:none;">
+            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
+                <i class="icon-font icon-back"></i>
+            </a>
+            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
+                <i class="icon-font icon-plane jump-plane"></i>
+            </div>
+        </div>
+        
+        
+    </div>
+</aside>
+
+
+
+
+  
+    <article id="post-Probabilistic graphical models" class="article article-type-post  article-index" itemscope itemprop="blogPost">
+  <div class="article-inner">
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h1 id="Probabilistic-graphical-models"><a href="#Probabilistic-graphical-models" class="headerlink" title="Probabilistic graphical models"></a>Probabilistic graphical models</h1><h2 id="Bayesian-networks"><a href="#Bayesian-networks" class="headerlink" title="Bayesian networks"></a>Bayesian networks</h2><p>有向图模型（又名贝叶斯网络）是一个概率分布族，允许使用有向图自然地描述紧凑的参数化。</p>
+<p>这种参数化背后的总体思路非常简单。</p>
+<p>回想一下，根据链式法则，我们可以将任何概率 $p$ 写为：<br>$$p(x_1,x_2,…,x_n)=p(x_1)p(x_2|x_1)…p(x_n|x_{n-1},…,x_2,x_1).$$</p>
+<p>紧凑贝叶斯网络是一种右侧的每个因子仅取决于少量祖先变量$x_{A_i}$的分布：<br>$$p(x_i|x_{i-1},…,x_1)=p(x_i|x_{A_i})$$</p>
+<p>如果每个变量都有 $d$ 个值并且最多有 $k$ 个祖先，那么整个表将包含最多 $O(d^{k+1})$ 个条目。</p>
+<h3 id="formal-definition"><a href="#formal-definition" class="headerlink" title="formal definition"></a>formal definition</h3><p>形式上，贝叶斯网络是一个有向图 $G=(V,E)$ 连同</p>
+<ul>
+<li>每个节点 $i\in V$ 的随机变量 $x_i$。</li>
+<li>每个节点有一个条件概率分布 (CPD) $p(x_i∣x_{A_i})$，指定 $x_i$ 以其 $parents$ 值为条件的概率。</li>
+</ul>
+<p>因此，贝叶斯网络定义了概率分布 $p$。相反，如果它可以分解为由 $G$ 指定的因子的乘积，我们说概率 $p$ 分解了 DAG $G$。</p>
+<p>总而言之，贝叶斯网络表示可以通过较小的局部条件概率分布（每个变量一个）的乘积形成的概率分布。 通过以这种形式表达概率，我们在模型中引入了某些变量是独立的假设。</p>
+<p>让我们使用符号 $I(p)$ 来表示对联合分布 $p$ 成立的所有独立性的集合。</p>
+
+      
+
+      
+    </div>
+    <div class="article-info article-info-index">
+      
+      
+      
+
+      
+        <p class="article-more-link">
+          <a class="article-more-a" href="/2021/06/29/Probabilistic%20graphical%20models/">展开全文 >></a>
+        </p>
+      
+
+      
+      <div class="clearfix"></div>
+    </div>
+  </div>
+</article>
+
+<aside class="wrap-side-operation">
+    <div class="mod-side-operation">
+        
+        <div class="jump-container" id="js-jump-container" style="display:none;">
+            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
+                <i class="icon-font icon-back"></i>
+            </a>
+            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
+                <i class="icon-font icon-plane jump-plane"></i>
+            </div>
+        </div>
+        
+        
+    </div>
+</aside>
+
+
+
+
+  
     <article id="post-Asymmetric Non-local Neural Networks for Semantic Segmentation" class="article article-type-post  article-index" itemscope itemprop="blogPost">
   <div class="article-inner">
     
@@ -163,7 +279,7 @@
 <li>semantic segmentation的问题架构本质上是一个 dense prediction 的问题，为每一个 pixel 预测一个 label，使得每个 pixel 的 prediction 之间其实并没有什么显式的联系，只有相邻像素在 FCN 中做卷积操作之后的<strong>感受野</strong>相似的隐式联系，前几年比较火的 CRF （Conditional Random Fields）的后处理可以 work，就是因为 pixel 之间没有整体概念，近几年的 affinity field、pixel attention（non-local）和 GCN 等方法用于处理 pixel 之间的关联，但处于瓶颈期。</li>
 <li>Feature Fusion 的过程非常粗糙，high-level 和 low-level 的特征融合方法会导致边界难以被很好地 mask，标注过程本来就无法将毛发这类都标出来，近年来有一些 <strong>channel attention</strong> 的机制，但是context 和局部 boundary 的融合仍然是一个没有被很好地解决的问题。</li>
 <li>mask rcnn 是基于 bounding box 的方法，上限被 object detection 限制了，也不是很完美的方法。</li>
-<li>全局的 shape 对 semantic segmentation 有帮助吗？如何提高性能？ texture 在 semantic segmentation 中占据什么地位？ 对于不同的 object，比如飞机、轮船等与动物等的区别而言，shape 和 texture 是不是占比不同。颜色信息是否可以占比较大？</li>
+<li>自己的一点思考：全局的 shape 对 semantic segmentation 有帮助吗？如何提高性能？ texture 在 semantic segmentation 中占据什么地位？ 对于不同的 object，比如飞机、轮船等与动物等的区别而言，shape 和 texture 是不是占比不同。颜色信息是否可以重点提取？</li>
 </ol>
 </blockquote>
 <h2 id="few-shot-segmentation"><a href="#few-shot-segmentation" class="headerlink" title="few-shot segmentation"></a>few-shot segmentation</h2><p>目前顶会并且发布了 code 的相关论文基本上全部都看过了，从2017年第一篇 <strong>BMVC</strong> 开始，大部分的方法都是 metric-based meta-learning 的提取 support image 的 prototype 再计算 query image 与 prototype 相似度得到概率图并分配 label 得到最终预测 mask 的方法，这个思路是没错的，因为 few-shot 的问题大部分还是放在 meta-learning 的 setting 下，提取 prototype 的方法很好地权衡了 performance 和 overffiting 的问题，从一开始的单 prototype 的方法到 <strong>2021 cvpr APL</strong> 提出的 adaptive prototype learning 通过 superpixel 的方法提取出多个 prototype 来匹配 query image 的 pixel，比之前的单 prototype 的方法更加可靠，一定程度上解决了单个 prototype 造成的 scale 不匹配和 信息损失 的问题。</p>
@@ -171,9 +287,62 @@
 <ol>
 <li>在对 semantic segmentation 问题分析的基础上，few-shot segmentation 想要得到更好的效果，也要面临同样的问题，主要是 <strong>pixel 之间的关系如何建模的问题</strong>，是否也能像 semantic segmentation 一样采用 non-local 或者 GCN 等方式来处理，会不会导致模型过于复杂而过拟合？为了防止过拟合，应该针对 task-independent 如何处理？</li>
 <li>Feature Fusion问题，目前相关论文对于 feature fusion 的处理都是 concatenate 为主，还是同样，如何将 context 和 boundary 的特征很好地融合？</li>
-<li>RGB 颜色信息和 texture 信息对分割任务的重要性如何体现？</li>
 </ol>
 </blockquote>
+<p>例外的是，目前 few-shot segmentation 屠榜的叫 HSNet，模型表现如下：</p>
+<center>
+    <img src="https://z3.ax1x.com/2021/06/28/Rt1qrn.png" width = "100%" alt=""/>
+    <br>
+    <div style="border-bottom: 1px solid #d9d9d9;
+    display: inline-block;
+    color: #999;
+    padding: 2px;">
+      </div>
+</center>
+
+
+<center>
+    <img src="https://z3.ax1x.com/2021/06/28/Rt3dMj.png" width = "100%" alt=""/>
+    <br>
+    <div style="border-bottom: 1px solid #d9d9d9;
+    display: inline-block;
+    color: #999;
+    padding: 2px;">
+      </div>
+</center>
+
+<p>由上图，即在 CNN 提取的特征中，越靠前 level 的即 geometric 信息，越靠后的 level 即 semantic 信息，在 Hypercorrelation squeeze 过程中，从 high-level 的 semantic 信息逐步传递给 low-level 的 geometric 信息，个人理解，<strong>这样得到的 correlation pattern 具有比较良好的泛化性能可以泛化到 unseen classes</strong>。</p>
+<p>HSNet与基于 prototype 提取的方法不同，它是通过建模 support 和 query 之间的 dense correlation 来提高性能的，该方法分为三个阶段，</p>
+<p>第一个阶段进行 Hypercorrelation construction，将输入的support image 和 query image 通过 backbone 提取特征，提取的 support feature 要经过 mask 操作来忽略 target 无关的信息，对同一 level 每一个不同位置的 support 和 query 计算相似度，由于每个相似度分数对应的坐标信息为 <strong>4维</strong> ，则产生了相应的 4D tensors，通过将大小相同的 level 合并，得到了 <strong>Hypercorrelation pyramid</strong>，</p>
+<p>第二个阶段进行 4D-convolutional pyramid encoder，对每一个 4D tensor 进行 4D 卷积来 squeeze，卷积之后的 tensor query 维度不变，但是 support 特征的维度减小了，再通过 4D 卷积来 mix 不同 level 的特征，按照 top-down 的做法，最后对 support feature 的维度进行 average pooling 操作，得到了 Encoded context。</p>
+<p>第三个阶段进行 2D-convolutional context decoder，通过一系列卷积和上采样操作得到最终的 prediction。</p>
+<center>
+    <img src="https://z3.ax1x.com/2021/06/28/Rt8ukV.png" width = "100%" alt=""/>
+    <br>
+    <div style="border-bottom: 1px solid #d9d9d9;
+    display: inline-block;
+    color: #999;
+    padding: 2px;">
+      </div>
+</center>
+
+<p>本篇论文虽然使用了看似参数量很大的 4D convolution，但是为了节省资源，对该 4D convolution 进行了轻量化处理，如下图所示：</p>
+<center>
+    <img src="https://z3.ax1x.com/2021/06/28/RtJnRU.png" width = "100%" alt=""/>
+    <br>
+    <div style="border-bottom: 1px solid #d9d9d9;
+    display: inline-block;
+    color: #999;
+    padding: 2px;">
+      </div>
+</center>
+
+<p>即将原本的 X*X 量级的参数量降到了 X+X 量级，在该论文的 appendix 中，还详细证明了如何将上图右边的 4D kernel 分解为两个 2D kernel，这样就解决了参数过多引起的资源消耗和过拟合问题，也是 HSNet 霸榜的原因。</p>
+<h2 id="自己搭建的baseline"><a href="#自己搭建的baseline" class="headerlink" title="自己搭建的baseline"></a>自己搭建的baseline</h2><p>（图还未画好，只有手画的草稿版）</p>
+<p>motivation 为基于 prototype-based 的方法损失了 support 和 query 的细粒度对应关系，虽然 2021 CVPR 的 APL 通过基于 super-pixel 的 cluster 提取 support feature 的 multi-prototype，但实际上还是未考虑到 prototype 在空间位置上的相关性，仍然是割裂来与 query 的每一个 pixel 的feature 进行比较，目前 HSNet 霸榜给了新的思考，也就是在合理的模型设计下，dense feature matching 不一定就会损失泛化能力，可以将 dense semantic matching 和 prototype-based 方法的 idea 互相融合，在 multi-prototype 的情况下考虑 其 prototype 之间的空间信息。</p>
+<p>在学习 semantic segmentation 的 non-local 理念时，发现是 transformer 的 idea 在 CV 的一个很好的应用，自注意力模块对于图片整体信息的挖掘使得 semantic segmentation 有了新的突破，该思想也可以用于 few-shot segmentation，使得 global semantic information 作为 support prototype 提取的一个重要参考。</p>
+<p>模型搭建还是利用 meta-learning 的 setting，在每次随机在选定的 class 中采样 query 时 采样出相应的 k 个 support，然后对其进行 multi-scale 的缩放来输入到 pretrained backbone 提取 middle 层的特征，将特征 mask 后进行自注意力模块的操作，将编码后的特征进行聚类，可以基于 super-pixel 或者 其他形式，然后为每一个聚好的类提取相应的 prototype 来与 query 作比较，query 做不做相应的 multi-scale 操作还没有想好，可以都进行一下尝试。对于不同 level 特征的融合，可以采用从粗到细 guidance 的方式，不断精细化相应的 predicted mask。</p>
+<p>PS：吐槽一下有些 paper 的 code，可读性封装性都好差，读起来特别麻烦，还好 HSNet 提供了一个还算不错的 baseline。</p>
 
       
 
